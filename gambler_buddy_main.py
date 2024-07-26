@@ -1,4 +1,6 @@
 from itertools import combinations
+from config import NUM_PLAYERS, INITIAL_CARDS
+from win_or_lose import win_or_lose as wl
 
 
 def generate_possibilities(amount_of_cards, hand_and_flop):
@@ -54,13 +56,13 @@ def parse_cards(card_input, num_cards, taken):
 
 def get_suit(val):
     if val == 'd':
-        return 'a'
-    elif val == 'c':
-        return 'b'
-    elif val == 'h':
-        return 'c'
-    else:
         return 'd'
+    elif val == 'c':
+        return 'c'
+    elif val == 'h':
+        return 'h'
+    else:
+        return 's'
 
 
 def check_royal(val):
@@ -99,8 +101,6 @@ def get_player(taken):
 
 
 if __name__ == '__main__':
-    INITIAL_CARDS = list(range(1, 53))
-    NUM_PLAYERS = 2
 
     # List to keep track of taken cards
     taken_cards = []
