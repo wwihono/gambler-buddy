@@ -13,18 +13,3 @@ def win_or_lose(player_cards, opponent_cards):
 def assign_value(cards):
     return 0
 
-
-def check_flush(cards):
-    # check suite
-    suite = cards[0] % 13
-    flag = False
-    for card in cards:
-        if suite is not (card % 13):
-            flag = True
-            break
-    return not flag
-
-
-def full_house(cards):
-    pass
-
