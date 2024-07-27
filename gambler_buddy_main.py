@@ -36,6 +36,6 @@ if __name__ == '__main__':
     # Get the flop cards
     FLOP_CARDS = fn.get_flop(taken_cards)
 
-    # User Output
+    # User Outputs
     print("Flop cards are:", fn.convert_to_original(FLOP_CARDS))
     print("Player's cards are:", fn.convert_to_original(PLAYER_CARDS))
