@@ -37,7 +37,7 @@ def parse_cards(card_input, num_cards, taken):
                 else:
                     card_dict[key] = [suit]
                 taken.append(curr_key)
-                curr_key = ""  # Clear curr val
+            curr_key = ""  # Clear curr val
             i += 1
 
     return card_dict
@@ -159,11 +159,20 @@ def encode(values):
     return values
 
 def convert_suit(suit):
-    if suit.lower() == "d":
+    if suit == "d":
         return 0
-    elif suit.lower() == "c":
+    elif suit == "c":
         return 13
-    elif suit.lower() == "h":
+    elif suit == "h":
         return 26
-    elif suit.lower() == "s":
+    elif suit == "s":
         return 39
+
+
+def encode_dict(cards_dict):
+    result_list = []
+
+    for key in cards_dict:
+        for suit in cards_dict[key]:
+            result_list.append(int(key) + convert_suit(suit))
+    return result_list

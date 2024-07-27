@@ -140,3 +140,15 @@ def assign_value(cards):
     elif check_deuce(cards):
         return 1
     return 0
+
+
+def win_or_lose(player_cards, opponent_cards, community_cards):
+    player_hand = player_cards + community_cards
+    opponent_hands = opponent_cards + community_cards
+    player_value = assign_value(player_hand)
+    opponent_value = assign_value(opponent_hands)
+    if player_value > opponent_value:
+        return 2
+    elif player_value < opponent_value:
+        return 0
+    return 1
