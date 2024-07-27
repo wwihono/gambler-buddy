@@ -1,22 +1,6 @@
 import numpy as np
 
 
-def win_or_lose(player_hand, opponent_hand, board):
-    # Simplified placeholder for evaluating hands.
-    # You should replace this with actual poker hand evaluation logic.
-    # Returns 1 if player wins, -1 if player loses, 0 if tie.
-    from deuces import Evaluator
-    evaluator = Evaluator()
-    player_score = evaluator.evaluate(board, player_hand)
-    opponent_score = evaluator.evaluate(board, opponent_hand)
-
-    if player_score < opponent_score:
-        return 1
-    elif player_score > opponent_score:
-        return -1
-    else:
-        return 0
-
 def check_flush(cards):
     # check suite
     suites = {}
@@ -84,9 +68,76 @@ def check_straight_flush(cards):
     return False
 
 
-def full_house(cards):
-    pass
+def check_full_house(cards):
+    numbers = {}
+    for card in cards:
+        card = card % 13
+        if card not in numbers:
+            numbers[card] = 1
+        else:
+            numbers[card] += 1
+    if 2 in numbers.values() and 3 in numbers.values():
+        return True
+    return False
 
 
-print(check_straight_flush([1, 2, 3, 4, 7, 6, 13]))
+def check_trey(cards):
+    numbers = {}
+    for card in cards:
+        card = card % 13
+        if card not in numbers:
+            numbers[card] = 1
+        else:
+            numbers[card] += 1
+    if max(numbers.values()) >= 3:
+        return True
+    return False
 
+
+def check_deuce(cards):
+    numbers = {}
+    for card in cards:
+        card = card % 13
+        if card not in numbers:
+            numbers[card] = 1
+        else:
+            numbers[card] += 1
+    if max(numbers.values()) >= 2:
+        return True
+    return False
+
+
+def check_double_deuce(cards):
+    numbers = {}
+    doubles = 0
+    for card in cards:
+        card = card % 13
+        if card not in numbers:
+            numbers[card] = 1
+        else:
+            numbers[card] += 1
+    if max(numbers.values()) >= 2:
+        doubles += 1
+    if doubles >= 2:
+        return True
+    return False
+
+
+def assign_value(cards):
+    if check_straight_flush(cards):
+        return 8
+    elif check_four_of_a_kind(cards):
+        return 7
+    elif check_full_house(cards):
+        return 6
+    elif check_flush(cards):
+        return 5
+    elif check_straight(cards):
+        return 4
+    elif check_trey(cards):
+        return 3
+    elif check_double_deuce(cards):
+        return 2
+    elif check_deuce(cards):
+        return 1
+    return 0
