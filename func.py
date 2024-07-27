@@ -147,3 +147,23 @@ def convert_to_original(dictionary):
             else:
                 result[new_key] = [suit for suit in dictionary[key]]
     return result
+
+def encode(values):
+    i = 0
+    for card in values:
+        suit = card[-1]
+        suit_value = convert_suit(suit)
+        encoded_suit = suit_value + int(card[:-1])
+        values[i] = encoded_suit
+        i+=1
+    return values
+
+def convert_suit(suit):
+    if suit.lower() == "d":
+        return 0
+    elif suit.lower() == "c":
+        return 13
+    elif suit.lower() == "h":
+        return 26
+    elif suit.lower() == "s":
+        return 39

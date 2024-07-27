@@ -1,7 +1,10 @@
 from itertools import combinations
-from config import NUM_PLAYERS, INITIAL_CARDS
 import numpy as np
 import func as fn
+
+
+NO_OF_PLAYERS = 2
+TOTAL_CARDS = 52 - 2 * NO_OF_PLAYERS
 
 
 def generate_possibilities(amount_of_cards, hand_and_flop):
@@ -36,6 +39,12 @@ if __name__ == '__main__':
     # Get the flop cards
     FLOP_CARDS = fn.get_flop(taken_cards)
 
+    # Convert taken cards to prepare for operations
+    taken_cards = fn.encode(taken_cards)
+
+
     # User Outputs
     print("Flop cards are:", fn.convert_to_original(FLOP_CARDS))
     print("Player's cards are:", fn.convert_to_original(PLAYER_CARDS))
+    print("taken cards: " + str(taken_cards))
+    print(generate_possibilities(TOTAL_CARDS, taken_cards))
