@@ -2,7 +2,6 @@ import numpy as np
 
 
 def check_flush(cards):
-    # check suite
     suites = {}
     for card in cards:
         suite = card // 13
