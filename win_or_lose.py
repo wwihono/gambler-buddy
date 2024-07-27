@@ -1,21 +1,21 @@
 import numpy as np
 
 
-def win_or_lose(player_cards, opponent_cards):
-    player_value = assign_value(player_cards)
-    opponent_value = assign_value(opponent_cards)
-    # 0 -> player wins, 1 -> player loses, 2 -> draw
-    if player_value > opponent_value:
-        return 0
-    elif player_value < opponent_value:
+def win_or_lose(player_hand, opponent_hand, board):
+    # Simplified placeholder for evaluating hands.
+    # You should replace this with actual poker hand evaluation logic.
+    # Returns 1 if player wins, -1 if player loses, 0 if tie.
+    from deuces import Evaluator
+    evaluator = Evaluator()
+    player_score = evaluator.evaluate(board, player_hand)
+    opponent_score = evaluator.evaluate(board, opponent_hand)
+
+    if player_score < opponent_score:
         return 1
+    elif player_score > opponent_score:
+        return -1
     else:
-        return 2
-
-
-def assign_value(cards):
-    return 0
-
+        return 0
 
 def check_flush(cards):
     # check suite
