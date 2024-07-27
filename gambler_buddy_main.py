@@ -1,6 +1,7 @@
 from itertools import combinations
 from config import NUM_PLAYERS, INITIAL_CARDS
 from win_or_lose import win_or_lose as wl
+import numpy as np
 import func as fn
 
 
@@ -9,7 +10,7 @@ def generate_possibilities(amount_of_cards, hand_and_flop):
     possibilities = []
     pool = []
     for x in range(amount_of_cards):
-        pool.append(x + 1)
+        pool.append(x)
     for known in hand_and_flop:
         pool.remove(known)
     # Choose 4 cards from the remaining
