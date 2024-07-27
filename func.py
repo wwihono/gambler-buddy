@@ -83,7 +83,7 @@ def get_flop(taken):
         Getter function to set and get flop cards from user input
 
         Args:
-            taken(dict): Dictionary of unavailable cards
+            taken(list): list of unavailable cards
 
         Returns:
             dict: Returns a dictionary of value:suit pairs converted to our enumerated values
@@ -103,7 +103,7 @@ def get_player(taken):
         Getter and Setter function to initialize player cards
 
         Args:
-            taken(dict): Dictionary of unavailable cards
+            taken(list): list of unavailable cards
 
         Returns:
             dict: Returns a dictionary of value:suit pairs converted to our enumerated values

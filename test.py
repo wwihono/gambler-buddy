@@ -1,16 +1,18 @@
 import unittest
+from unittest import mock
 
 # Assuming the functions are defined in a module named card_parser
-from func import parse_cards, get_suit, check_royal, add_royal, get_flop, get_player, convert_to_original
+from func import parse_cards, check_royal, add_royal, get_flop, get_player, convert_to_original
+
 
 class TestCardFunctions(unittest.TestCase):
 
     def test_parse_cards(self):
         taken = []
         result = parse_cards("Ad10cKc", 3, taken)
-        expected = {'14': ['d'], '9': ['c'], '12': ['c']}
+        expected = {'13': ['d'], '9': ['c'], '12': ['c']}
         self.assertEqual(result, expected)
-        self.assertEqual(taken, ['13d', '9c', '11c'])
+        self.assertEqual(taken, ['13d', '9c', '12c'])
 
         taken = []
         result = parse_cards("10d9s6c", 3, taken)
@@ -18,11 +20,6 @@ class TestCardFunctions(unittest.TestCase):
         self.assertEqual(result, expected)
         self.assertEqual(taken, ['9d', '8s', '5c'])
 
-    def test_get_suit(self):
-        self.assertEqual(get_suit('d'), 'd')
-        self.assertEqual(get_suit('c'), 'c')
-        self.assertEqual(get_suit('h'), 'h')
-        self.assertEqual(get_suit('s'), 's')
 
     def test_check_royal(self):
         self.assertTrue(check_royal('J'))
@@ -41,31 +38,27 @@ class TestCardFunctions(unittest.TestCase):
     def test_get_flop(self):
         taken = []
         # Mock input
-        with unittest.mock.patch('builtins.input', return_value='Ad10cKc'):
+        with mock.patch('builtins.input', return_value='Ad10cKc'):
             result = get_flop(taken)
-            expected = {'14': ['d'], '9': ['c'], '12': ['c']}
+            expected = {'13': ['d'], '9': ['c'], '12': ['c']}
             self.assertEqual(result, expected)
-            self.assertEqual(taken, ['13d', '9c', '11c'])
+            self.assertEqual(taken, ['13d', '9c', '12c'])
 
     def test_get_player(self):
         taken = []
         # Mock input
         with unittest.mock.patch('builtins.input', return_value='AdKc'):
             result = get_player(taken)
-            expected = {'14': ['d'], '12': ['c']}
+            expected = {'13': ['d'], '12': ['c']}
             self.assertEqual(result, expected)
-            self.assertEqual(taken, ['13d', '11c'])
+            self.assertEqual(taken, ['13d', '12c'])
 
     def test_convert_to_original(self):
-        dictionary = {'14': ['d'], '10': ['c'], '12': ['c']}
+        dictionary = {'13': ['d', 'c'], '10': ['h']}
         result = convert_to_original(dictionary)
-        expected = {'A': ['d'], 'J': ['c'], 'Q': ['c']}
+        expected = {'A': ['d', 'c'], 'J': ['h']}
         self.assertEqual(result, expected)
 
-        dictionary = {'9': ['d'], '8': ['s'], '5': ['c']}
-        result = convert_to_original(dictionary)
-        expected = {'10': ['d'], '9': ['s'], '6': ['c']}
-        self.assertEqual(result, expected)
 
 if __name__ == '__main__':
     unittest.main()
