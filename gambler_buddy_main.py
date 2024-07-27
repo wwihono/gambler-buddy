@@ -25,7 +25,6 @@ def generate_possibilities(amount_of_cards, hand_and_flop):
     return possibilities
 
 
-
 if __name__ == '__main__':
 
     # List to keep track of taken cards
