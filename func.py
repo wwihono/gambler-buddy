@@ -28,7 +28,7 @@ def parse_cards(card_input, num_cards, taken):
             i += 1
         else:
             suit = input_val
-            curr_key = str(int(curr_key) - 1)
+            curr_key = str(int(curr_key) - 2)
             curr_key += suit
             if curr_key not in taken:
                 key = curr_key[:-1]
@@ -131,17 +131,17 @@ def convert_to_original(dictionary):
     result = {}
     for key in dictionary.keys():
         int_key = int(key)
-        if int_key > 9:
-            if int_key == 10:
+        if int_key > 8:
+            if int_key == 9:
                 result['J'] = [suit for suit in dictionary[key]]
-            elif int_key == 11:
+            elif int_key == 10:
                 result['Q'] = [suit for suit in dictionary[key]]
-            elif int_key == 12:
+            elif int_key == 11:
                 result['K'] = [suit for suit in dictionary[key]]
-            elif int_key == 13:
+            elif int_key == 12:
                 result['A'] = [suit for suit in dictionary[key]]
         else:
-            new_key = str(int_key + 1)
+            new_key = str(int_key)
             if new_key in result:
                 result[new_key].extend([suit for suit in dictionary[key]])
             else:

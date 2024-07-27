@@ -31,10 +31,11 @@ if __name__ == '__main__':
     taken_cards = []
 
     # Get the player's cards
-    PLAYER_CARDS = fn.convert_to_original(fn.get_player(taken_cards))
+    PLAYER_CARDS = fn.get_player(taken_cards)
 
     # Get the flop cards
-    FLOP_CARDS = fn.convert_to_original(fn.get_flop(taken_cards))
+    FLOP_CARDS = fn.get_flop(taken_cards)
 
-    print("Flop cards are:", FLOP_CARDS)
-    print("Player's cards are:", PLAYER_CARDS)
+    # User Output
+    print("Flop cards are:", fn.convert_to_original(FLOP_CARDS))
+    print("Player's cards are:", fn.convert_to_original(PLAYER_CARDS))
