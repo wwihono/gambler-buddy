@@ -1,6 +1,7 @@
 from itertools import combinations
 from config import NUM_PLAYERS, INITIAL_CARDS
 from win_or_lose import win_or_lose as wl
+import func as fn
 
 
 def generate_possibilities(amount_of_cards, hand_and_flop):
@@ -24,81 +25,6 @@ def generate_possibilities(amount_of_cards, hand_and_flop):
     return possibilities
 
 
-def parse_cards(card_input, num_cards, taken):
-    card_dict = {}
-    i = 0
-    curr_value = ""
-
-    while len(card_dict) < num_cards and i < len(card_input):
-        input_val = card_input[i].lower()
-        if input_val not in "dchs":
-            if check_royal(input_val):
-                curr_value += add_royal(input_val)
-            else:
-                curr_value += card_input[i]
-            i += 1
-        else:
-            suit = get_suit(input_val)
-            curr_value = str(int(curr_value) - 1)
-            curr_value += suit
-            if curr_value not in taken:
-                value = curr_value[:-1]
-                if value in card_dict:
-                    card_dict[value].append(suit)
-                else:
-                    card_dict[value] = [suit]
-                taken.append(curr_value)
-                curr_value = ""  # Clear curr val
-            i += 1
-
-    return card_dict
-
-
-def get_suit(val):
-    if val == 'd':
-        return 'd'
-    elif val == 'c':
-        return 'c'
-    elif val == 'h':
-        return 'h'
-    else:
-        return 's'
-
-
-def check_royal(val):
-    return val.lower() in "jqka"
-
-
-def add_royal(val):
-    if val.lower() == 'j':
-        return "11"
-    elif val.lower() == 'q':
-        return "12"
-    elif val.lower() == 'k':
-        return "13"
-    else:
-        return "14"
-
-
-def get_flop(taken):
-    print("\nPlease input cards using this format (value-suit-value-suit-value-suit)" +
-          "\n D = diamond, C = clover, H = heart, S = spade\n" +
-          "J = jack, Q = queen, K = king, A = Ace\n" +
-          "CASE-INSENSITIVE\n" +
-          "---\n")
-    x = input("Input flop cards (Ex: 'Ad10cKc', '10d9s6c'): ").strip()
-    return parse_cards(x, 3, taken)
-
-
-def get_player(taken):
-    print("Please input cards using this format (value-suit-value-suit)" +
-          "\n D = diamond, C = clover, H = heart, S = spade\n" +
-          "J = jack, Q = queen, K = king, A = Ace\n" +
-          "CASE-INSENSITIVE\n" +
-          "---\n")
-    x = input("Input player cards (Ex: 'AdKc', '10d9s'): ").strip()
-    return parse_cards(x, 2, taken)
-
 
 if __name__ == '__main__':
 
@@ -106,9 +32,10 @@ if __name__ == '__main__':
     taken_cards = []
 
     # Get the player's cards
-    PLAYER_CARDS = get_player(taken_cards)
+    PLAYER_CARDS = fn.convert_to_original(fn.get_player(taken_cards))
 
     # Get the flop cards
-    FLOP_CARDS = get_flop(taken_cards)
+    FLOP_CARDS = fn.convert_to_original(fn.get_flop(taken_cards))
+
     print("Flop cards are:", FLOP_CARDS)
     print("Player's cards are:", PLAYER_CARDS)
