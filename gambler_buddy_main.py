@@ -1,6 +1,5 @@
 from itertools import combinations
 from config import NUM_PLAYERS, INITIAL_CARDS
-from win_or_lose import win_or_lose as wl
 import numpy as np
 import func as fn
 
